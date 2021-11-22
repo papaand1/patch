@@ -1,0 +1,20 @@
+---
+# This playbook patches dirty cow
+
+- name: patch linux servers
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: check yum for updates
+      yum: 
+        list: updates
+        update_cache: true
+      register: yumcheck
+    - name: update all packages
+      yum:
+        name: "*"
+        states: latest
+    - name: reboot
+      reboot:
+    when: yumcheck.results
