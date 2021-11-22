@@ -14,7 +14,7 @@
     - name: update all packages
       yum:
         name: "*"
-        states: latest
+        state: latest
     - name: reboot
       reboot:
     when: yumcheck.results
